@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <h1 class="title">{{ user.username }}</h1>
+                <h2 class="subtitle">{{ number_of_votes }} votes</h2>
+            
+                <hr>
+
+                <a href="{% url 'submissions' user.username %}">Submissions</a> | 
+                <a href="{% url 'votes' user.username %}">Votes</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

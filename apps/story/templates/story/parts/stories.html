@@ -1,0 +1,22 @@
+<div class="columns">
+    <div class="column is-12">
+        <table class="table is-striped is-fullwidth">
+            <tbody>
+                {% for story in stories %}
+                    <tr>
+                        <td>{{ forloop.counter }}.</td>
+                        <td>
+                            <a href="{{ story.url }}" target="_blank">{{ story.title }}</a>
+                            <p>
+                                {{ story.number_of_votes }} votes by {{ story.created_by.username }} {{ story.created_at|timesince }} ago | 
+                                
+                                {% if not story.created_by == request.user %}<a href="{% url 'vote' story.id %}">Vote</a>{% endif %}
+                                <a href="{% url 'story' story.id %}">Discuss</a>
+                            </p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

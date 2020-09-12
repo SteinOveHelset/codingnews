@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <h1 class="title">Newest</h1>
+            </div>
+        </div>
+
+        {% include 'story/parts/stories.html' %}
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Title -->
+        <title>Coding News</title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    </head>
+
+    <body>
+        <!-- Nav -->
+        <nav class="navbar is-dark">
+            <div class="navbar-brand">
+                <a href="/" class="navbar-item"><strong>Coding News</strong></a>
+            </div>
+
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="navbar-item">
+                        <form method="get" action="{% url 'search' %}">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input type="text" class="input" placeholder="Search..." name="query">
+                                </div>
+
+                                <div class="control">
+                                    <button class="button is-success">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="navbar-end">
+                    <a href="{% url 'newest' %}" class="navbar-item">Newest</a>
+                    <a href="{% url 'submit' %}" class="navbar-item">Submit</a>
+
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'logout' %}" class="button is-danger">Log out</a>
+                            {% else %}
+                                <a href="{% url 'signup' %}" class="button is-success"><strong>Sign up</strong></a>
+                                <a href="{% url 'login' %}" class="button is-light">Log in</a>    
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- End Nav -->
+
+        <!-- Content -->
+        <section class="section">
+            {% block content %}
+            {% endblock %}
+        </section>
+        <!-- End Content -->
+    </body>
+</html>

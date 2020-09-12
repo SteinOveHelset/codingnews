@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-12">
+                <h1 class="title">{{ story.title }}</h1>
+                <h2 class="subtitle">{{ story.number_of_votes }} votes</h2>
+            
+                <strong>By: </strong><a href="{% url 'userprofile' story.created_by.username %}">{{ story.created_by.username }}</a> {{ story.created_at|timesince }} ago<br>
+                <strong>Visit: </strong><a href="{{ story.url }}" target="_blank">{{ story.url }}</a>
+            
+                <hr>
+
+                {% if not story.created_by == request.user %}<a href="{% url 'vote' story.id %}?next_page=story" class="button is-success">Vote</a>{% endif %}
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-12">
+                <hr>
+
+                <h2 class="subtitle">Comments</h2>
+
+                {% for comment in story.comments.all %}
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>{{ comment.created_by.username }}</strong> <small>{{ comment.created_at|timesince }} ago</small><br>
+                                    {{ comment.body }}
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p>No comments yet!</p>
+                {% endfor %}
+
+                <hr>
+
+                <h2 class="subtitle">Add comment</h2>
+
+                {% if request.user.is_authenticated %}
+                    <form method="post" action=".">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <div class="field">
+                            <div class="field">
+                                <button class="button is-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                {% else %}
+                    <p>Please log in to comment!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
